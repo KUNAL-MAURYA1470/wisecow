@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,4 +31,29 @@ jobs:
       with:
         context: .
         push: true
-        tags: kunalmaurya/wisecow:latest        
+        tags: kunalmaurya/wisecow:app-${{ github.run_number }}      
+  modifygit:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: changing the deployment of git repo
+        with:
+          repository: 'KUNAL-MAURYA1470/wisecow-Manifest'
+          token: ${{ secrets.GIT_PASSWORD }}
+      - name: modify the image
+        run: |
+          git config user.email krsm1470@gmail.com
+          git config user.name KUNAL-MAURYA1470
+          pwd
+          cat deployment.yaml
+          pwd
+          sed -i "s+kunalmaurya/wisecow.*+kunalmaurya/wisecow:app-$RUN_NUMBER+g" deployment.yaml
+          cat deployment.yaml
+          git add .
+          git commit -m 'Done  by Github Actions   Job changemanifest: ${{ github.run_number }}'
+          git push origin main
+        env:
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}
+          RUN_NUMBER: ${{ github.run_number }}
