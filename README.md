@@ -151,3 +151,6 @@ Now, we need to install the Nginx Ingress Controller so that it can redirect inc
 - Click on the lock icon in the URL bar to verify that the TLS certificate is trusted by your browser and that the connection is secure:
   
 ![image](https://github.com/KUNAL-MAURYA1470/wisecow/assets/83691101/62fbc0a1-9281-4e41-a474-523e2579f6b7)
+
+![image](https://github.com/KUNAL-MAURYA1470/wisecow/assets/83691101/2f38f918-2f0b-49ce-b8cc-7b33a934396a)
+
